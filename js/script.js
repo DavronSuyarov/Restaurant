@@ -314,6 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		},
 	]
 	specialMenuLeft.forEach(menu => {
+		//hello dars 32
 		const { src, alt, title, price, descr } = menu
 		new SpecialMenu(src, alt, title, price, descr, ".menu-items-left").render()
 	})
