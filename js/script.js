@@ -1,4 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+"use stcict"
+
+window.addEventListener("DOMContentLoaded", () => {
 	// -------------------> TABS <-------------
 
 	const tabs = document.querySelectorAll(".tabheader__item"),
@@ -104,7 +106,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	const modalOpenBtns = document.querySelectorAll("[data-modal]"),
 		modal = document.querySelector(".modal"),
-		modalCloseBtn = document.querySelector("[data-modal-close]"),
 		modalView = document.querySelector(".modal__content")
 
 	function openModal() {
@@ -123,10 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
 		modal.classList.add("show")
 		document.body.style.overflow = ""
 	}
-	modalCloseBtn.addEventListener("click", closeModal)
 
 	modal.addEventListener("click", event => {
-		if (event.target === modal) {
+		if (
+			event.target === modal ||
+			event.target.getAttribute("data-modal-close") === ""
+		) {
 			closeModal()
 		}
 	})
@@ -173,65 +176,25 @@ document.addEventListener("DOMContentLoaded", () => {
 			this.parent.append(element)
 		}
 	}
-	const offers = [
-		{
-			src: "./img/offer1.png",
-			alt: "Quattro Pasta",
-			title: "Quattro Pasta",
-			descr:
-				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
-			price: 55,
-			discount: 23,
-		},
-		{
-			src: "./img/offer2.png",
-			alt: "Vegertarian Pasta",
-			title: "Vegertarian Pasta",
-			descr:
-				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
-			price: 75,
-			discount: 32,
-		},
-		{
-			src: "./img/offer3.png",
-			alt: "Gluten-Free Pasta",
-			title: "Gluten-Free Pasta",
-			descr:
-				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
-			price: 45,
-			discount: 15,
-		},
-	]
-	offers.forEach(offer => {
-		// console.log(offer)
-		new OfferMenu(
-			offer.src,
-			offer.alt,
-			offer.title,
-			offer.descr,
-			offer.price,
-			offer.discount,
-			".offers-items"
-		).render()
+	fetch("http://localhost:3000/offers", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
 	})
-	// new OfferMenu(
-	// 	"./img/offer2.png",
-	// 	"Vegertarian Pasta",
-	// 	"Vegertarian Pasta",
-	// 	"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
-	// 	75,
-	// 	34,
-	// 	".offers-items"
-	// ).render()
-	// new OfferMenu(
-	// 	"./img/offer3.png",
-	// 	"Gluten-Free Pasta",
-	// 	"Gluten-Free Pasta",
-	// 	"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam, quibusdam.",
-	// 	45,
-	// 	32,
-	// 	".offers-items"
-	// ).render()
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(offer => {
+				// console.log(offer)
+				new OfferMenu(
+					offer.src,
+					offer.alt,
+					offer.title,
+					offer.descr,
+					offer.price,
+					offer.discount,
+					".offers-items"
+				).render()
+			})
+		})
 
 	class SpecialMenu {
 		constructor(src, alt, title, price, descr, parentSelector) {
@@ -263,197 +226,44 @@ document.addEventListener("DOMContentLoaded", () => {
 			this.parent.append(element)
 		}
 	}
-	const specialMenuLeft = [
-		{
-			src: "./img/food1.png",
-			alt: "LASAL Cheese",
-			title: "LASAL CHEESE",
-			price: 18,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food2.png",
-			alt: "JUMBO CRAB SHRIMP",
-			title: "JUMBO CRAB SHRIMP",
-			price: 19,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food3.png",
-			alt: "KOKTAIL JUCIE",
-			title: "KOKTAIL JUCIE",
-			price: 20,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food4.png",
-			alt: "CAPO STEAK",
-			title: "CAPO STEAK",
-			price: 21,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food5.png",
-			alt: "ORGANIC FRUIT SALAD",
-			title: "ORGANIC FRUIT SALAD",
-			price: 22,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food6.png",
-			alt: "CHEESE PIZZA",
-			title: "CHEESE PIZZA",
-			price: 23,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-	]
-	specialMenuLeft.forEach(menu => {
-		//hello dars 32
-		const { src, alt, title, price, descr } = menu
-		new SpecialMenu(src, alt, title, price, descr, ".menu-items-left").render()
+	fetch("http://localhost:3000/specialMenuLeft", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
 	})
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(menu => {
+				//hello dars 32
+				const { src, alt, title, price, descr } = menu
+				new SpecialMenu(
+					src,
+					alt,
+					title,
+					price,
+					descr,
+					".menu-items-left"
+				).render()
+			})
+		})
 
-	// new SpecialMenu(
-	// 	"./img/food2.png",
-	// 	"JUMBO CRAB SHRIMP",
-	// 	"JUMBO CRAB SHRIMP",
-	// 	19,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-left"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food3.png",
-	// 	"KOKTAIL JUCIE",
-	// 	"KOKTAIL JUCIE",
-	// 	20,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-left"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food4.png",
-	// 	"CAPO STEAK",
-	// 	"CAPO STEAK",
-	// 	21,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-left"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food5.png",
-	// 	"ORGANIC FRUIT SALAD",
-	// 	"ORGANIC FRUIT SALAD",
-	// 	22,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-left"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food6.png",
-	// 	"CHEESE PIZZA",
-	// 	"CHEESE PIZZA",
-	// 	23,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-left"
-	// ).render()
-
-	const specialMenuRight = [
-		{
-			src: "./img/food7.jpeg",
-			alt: "KOFTA MEAT",
-			title: "KOFTA MEAT",
-			price: 24,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food8.jpeg",
-			alt: "SPANISH PIES",
-			title: "SPANISH PIES",
-			price: 25,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food9.jpeg",
-			alt: "CHEESE TOST",
-			title: "CHEESE TOST",
-			price: 26,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food10.jpeg",
-			alt: "FRUIT SALAD",
-			title: "FRUIT SALAD",
-			price: 27,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food11.jpeg",
-			alt: "CHICKEN SHAWARMA",
-			title: "CHICKEN SHAWARMA",
-			price: 28,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-		{
-			src: "./img/food12.jpeg",
-			alt: "MEGA CHEESE PIZZA",
-			title: "MEGA CHEESE PIZZA",
-			price: 29,
-			descr:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-		},
-	]
-	specialMenuRight.forEach(menu => {
-		const { src, alt, title, price, descr } = menu
-		new SpecialMenu(src, alt, title, price, descr, ".menu-items-right").render()
+	fetch("http://localhost:3000/specialMenuRight", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
 	})
-	// new SpecialMenu(
-	// 	"./img/food8.jpeg",
-	// 	"SPANISH PIES",
-	// 	"SPANISH PIES",
-	// 	25,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-right"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food9.jpeg",
-	// 	"CHEESE TOST",
-	// 	"CHEESE TOST",
-	// 	26,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-right"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food10.jpeg",
-	// 	"FRUIT SALAD",
-	// 	"FRUIT SALAD",
-	// 	27,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-right"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food11.jpeg",
-	// 	"CHICKEN SHAWARMA",
-	// 	"CHICKEN SHAWARMA",
-	// 	28,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-right"
-	// ).render()
-	// new SpecialMenu(
-	// 	"./img/food12.jpeg",
-	// 	"MEGA CHEESE PIZZA",
-	// 	"MEGA CHEESE PIZZA",
-	// 	29,
-	// 	"Lorem ipsum dolor sit amet consectetur adipisicing elit. At, explicabo.",
-	// 	".menu-items-right"
-	// ).render()
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(menu => {
+				const { src, alt, title, price, descr } = menu
+				new SpecialMenu(
+					src,
+					alt,
+					title,
+					price,
+					descr,
+					".menu-items-right"
+				).render()
+			})
+		})
 
 	class DayTime {
 		constructor(src, alt, title, time, parentSelector) {
@@ -473,58 +283,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			this.parent.append(element)
 		}
 	}
-	const dayTimes = [
-		{
-			src: "./img/breckfastIcon.png",
-			alt: "Breakfast",
-			title: "Breakfast",
-			time: "8:00 am to 10:00 am",
-		},
-		{
-			src: "./img/lunchIcon.png",
-			alt: "Lunch",
-			title: "Lunch",
-			time: "4:00 pm to 7:00 pm",
-		},
-		{
-			src: "./img/dinnerIcon.png",
-			alt: "Dinner",
-			title: "Dinner",
-			time: "9:00 am to 1:00 am",
-		},
-		{
-			src: "./img/dessertIcon.png",
-			alt: "Dessert",
-			title: "Dessert",
-			time: "All Day",
-		},
-	]
-	dayTimes.forEach(daytimes => {
-		// console.log(daytimes)
-		const { src, alt, title, time } = daytimes
-		new DayTime(src, alt, title, time, ".daytime-items").render()
+	fetch("http://localhost:3000/dayTimes", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
 	})
-	// new DayTime(
-	// 	"./img/lunchIcon.png",
-	// 	"Lunch",
-	// 	"Lunch",
-	// 	"4:00 pm to 7:00 pm",
-	// 	".daytime-items"
-	// ).render()
-	// new DayTime(
-	// 	"./img/dinnerIcon.png",
-	// 	"Dinner",
-	// 	"Dinner",
-	// 	"9:00 pm to 1:00 am",
-	// 	".daytime-items"
-	// ).render()
-	// new DayTime(
-	// 	"./img/dessertIcon.png",
-	// 	"Dessert",
-	// 	"Dessert",
-	// 	"All day",
-	// 	".daytime-items"
-	// ).render()
+		.then(response => response.json())
+		.then(data => {
+			data.forEach(daytimes => {
+				// console.log(daytimes)
+				const { src, alt, title, time } = daytimes
+				new DayTime(src, alt, title, time, ".daytime-items").render()
+			})
+		})
 
 	// -------------------> FORM <-------------
 	const form = document.querySelector("form"),
@@ -593,28 +363,4 @@ document.addEventListener("DOMContentLoaded", () => {
 			closeModal()
 		}, 4000)
 	}
-
-	// const form = document.querySelector("from"),
-	// 	telegramTokenBot = "6865151304:AAH89nCH_W4asJrqv9Hf8bP4N5M6efye4jU",
-	// 	chatId = "209087908"
-
-	// form.addEventListener("submit", event => {
-	// 	event.preventDefault()
-
-	// 	const formData = new FormData(form)
-
-	// 	const object = {}
-	// 	formData.forEach((value, key) => {
-	// 		object[key] = value
-	// 	})
-	// 	console.log(object)
-
-	// fetch(`https://api.telegram.org/bot${telegramTokenBot}/sendMessage`, {
-	// 	method: "POST",
-	// 	headers: { "Content-Type": "application/json" },
-	// 	body: JSON.stringify({
-	// 		chat_id: chatId,
-	// 		text: `Name: ${object.name}. Phone: ${object.phone}`,
-	// 	}),
-	// })
 })
