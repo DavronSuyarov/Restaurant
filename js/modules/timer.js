@@ -32,14 +32,12 @@ function timer(deadline) {
 		}
 	}
 	function setClock(selector, endtime) {
-		const timer = document.querySelector(selector),
-			days = timer.querySelector("#days"),
-			hours = timer.querySelector("#hours"),
-			minutes = timer.querySelector("#minutes"),
-			seconds = timer.querySelector("#seconds"),
-			timeInterval = setInterval(updateClock, 1000)
-
-		updateClock()
+		const timer = document.querySelector(selector)
+		const days = timer.querySelector("#days")
+		const hours = timer.querySelector("#hours")
+		const minutes = timer.querySelector("#minutes")
+		const seconds = timer.querySelector("#seconds")
+		const timeInterval = setInterval(updateClock, 1000)
 
 		function updateClock() {
 			const time = getTimeRemaining(endtime)
@@ -51,6 +49,7 @@ function timer(deadline) {
 				clearInterval(timeInterval)
 			}
 		}
+		updateClock()
 	}
 	setClock(".timer", deadline)
 }
