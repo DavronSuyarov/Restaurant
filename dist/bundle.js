@@ -36,7 +36,7 @@ function classes(selector) {
 		}
 		render() {
 			const element = document.createElement("div")
-			element.innerHTML = `			
+			element.innerHTML = `
 			  <img src="${this.src}" alt="${this.alt}">
 			  <div>
 				<h3>${this.title}</h3>
@@ -185,7 +185,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal */ "./js/modules/modal.js");
 
 
-function form(formSelector, modalTimerId) {
+function forms(formSelector, modalTimerId) {
 	const form = document.querySelector(formSelector),
 		telegramTokenBot = "6865151304:AAH89nCH_W4asJrqv9Hf8bP4N5M6efye4jU",
 		chatId = "209087908"
@@ -233,16 +233,16 @@ function form(formSelector, modalTimerId) {
 		const modalDialog = document.querySelector(".modal__dialog")
 
 		modalDialog.classList.add("hide")
-		;(0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)(".modal", ".modal__content", modalTimerId)
+		;(0,_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)(".modal__content", ".modal", modalTimerId)
 
 		const statusModal = document.createElement("div")
 		statusModal.classList.add("modal__dialog")
 		statusModal.innerHTML = `
-		<div class="modal__content">
-			<div data-modal-close class="modal__close">&times;</div>
-			<div class="modal__title">${message}</div>
-		</div>
-	`
+			<div class="modal__content">
+				<div data-modal-close class="modal__close">&times;</div>
+				<div class="modal__title">${message}</div>
+			</div>
+		`
 
 		document.querySelector(".modal").append(statusModal)
 
@@ -254,7 +254,7 @@ function form(formSelector, modalTimerId) {
 	}
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (form);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (forms);
 
 
 /***/ }),
@@ -293,11 +293,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   openModal: () => (/* binding */ openModal)
 /* harmony export */ });
-function openModal(modalViewSelector, modalSelector, modalTimerId) {
-	const modalView = document.querySelector(modalViewSelector),
+function openModal(modalContentSelector, modalSelector, modalTimerId) {
+	const modalContent = document.querySelector(modalContentSelector),
 		modal = document.querySelector(modalSelector)
 
-	modalView.classList.add("modal_fade")
+	modalContent.classList.add("modal_fade")
 	modal.classList.add("show")
 	modal.classList.remove("hide")
 	document.body.style.overflow = "hidden"
@@ -311,17 +311,17 @@ function closeModal(modalSelector) {
 	const modal = document.querySelector(modalSelector)
 
 	modal.classList.add("hide")
-	modal.classList.add("show")
+	modal.classList.remove("show")
 	document.body.style.overflow = ""
 }
 
-function modal(btnSelector, modalSelector, modalViewSelector, modalTimerId) {
+function modal(btnSelector, modalSelector, modalContentSelector, modalTimerId) {
 	const modalOpenBtns = document.querySelectorAll(btnSelector),
 		modal = document.querySelector(modalSelector)
 
 	modalOpenBtns.forEach(btn => {
 		btn.addEventListener("click", () =>
-			openModal(modalSelector, modalViewSelector, modalTimerId)
+			openModal(modalContentSelector, modalSelector, modalTimerId)
 		)
 	})
 
@@ -333,6 +333,7 @@ function modal(btnSelector, modalSelector, modalViewSelector, modalTimerId) {
 			closeModal(modalSelector)
 		}
 	})
+
 	document.addEventListener("keydown", event => {
 		if (event.code === "Escape" && modal.classList.contains("show")) {
 			closeModal(modalSelector)
@@ -530,14 +531,12 @@ function timer(deadline) {
 		}
 	}
 	function setClock(selector, endtime) {
-		const timer = document.querySelector(selector),
-			days = timer.querySelector("#days"),
-			hours = timer.querySelector("#hours"),
-			minutes = timer.querySelector("#minutes"),
-			seconds = timer.querySelector("#seconds"),
-			timeInterval = setInterval(updateClock, 1000)
-
-		updateClock()
+		const timer = document.querySelector(selector)
+		const days = timer.querySelector("#days")
+		const hours = timer.querySelector("#hours")
+		const minutes = timer.querySelector("#minutes")
+		const seconds = timer.querySelector("#seconds")
+		const timeInterval = setInterval(updateClock, 1000)
 
 		function updateClock() {
 			const time = getTimeRemaining(endtime)
@@ -549,6 +548,7 @@ function timer(deadline) {
 				clearInterval(timeInterval)
 			}
 		}
+		updateClock()
 	}
 	setClock(".timer", deadline)
 }
@@ -636,19 +636,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 window.addEventListener("DOMContentLoaded", () => {
 	const modalTimerId = setTimeout(
-		() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__.openModal)(".modal__content", ".modal", modalTimerId),
-		60000
+		() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__.openModal)(".modal", ".modal__content", modalTimerId),
+		6000
 	)
-
-	;(0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])(".tabheader__item", ".tab_content", ".tabheader__items"),
-		;(0,_modules_loader__WEBPACK_IMPORTED_MODULE_2__["default"])(".loader-wrapper"),
-		;(0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])("2024-09-09"),
-		;(0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])("[data-modal]", ".modal", ".modal__content", modalTimerId),
-		;(0,_modules_class__WEBPACK_IMPORTED_MODULE_0__["default"])(".offers-items"),
-		;(0,_modules_slider__WEBPACK_IMPORTED_MODULE_4__["default"])(),
-		;(0,_modules_form__WEBPACK_IMPORTED_MODULE_1__["default"])("form", ".modal", ".modal__content", modalTimerId)
+	;(0,_modules_tabs__WEBPACK_IMPORTED_MODULE_5__["default"])(".tabheader__item", ".tab_content", ".tabheader__items")
+	;(0,_modules_loader__WEBPACK_IMPORTED_MODULE_2__["default"])(".loader-wrapper")
+	;(0,_modules_timer__WEBPACK_IMPORTED_MODULE_6__["default"])("2024-09-09")
+	;(0,_modules_modal__WEBPACK_IMPORTED_MODULE_3__["default"])("[data-modal]", ".modal", ".modal__content", modalTimerId)
+	;(0,_modules_class__WEBPACK_IMPORTED_MODULE_0__["default"])(".offers-items")
+	;(0,_modules_slider__WEBPACK_IMPORTED_MODULE_4__["default"])()
+	;(0,_modules_form__WEBPACK_IMPORTED_MODULE_1__["default"])("form", modalTimerId)
 })
 
 })();

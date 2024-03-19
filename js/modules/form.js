@@ -1,6 +1,6 @@
 import { closeModal, openModal } from "./modal"
 
-function form(formSelector, modalTimerId) {
+function forms(formSelector, modalTimerId) {
 	const form = document.querySelector(formSelector),
 		telegramTokenBot = "6865151304:AAH89nCH_W4asJrqv9Hf8bP4N5M6efye4jU",
 		chatId = "209087908"
@@ -48,16 +48,16 @@ function form(formSelector, modalTimerId) {
 		const modalDialog = document.querySelector(".modal__dialog")
 
 		modalDialog.classList.add("hide")
-		openModal(".modal", ".modal__content", modalTimerId)
+		openModal(".modal__content", ".modal", modalTimerId)
 
 		const statusModal = document.createElement("div")
 		statusModal.classList.add("modal__dialog")
 		statusModal.innerHTML = `
-		<div class="modal__content">
-			<div data-modal-close class="modal__close">&times;</div>
-			<div class="modal__title">${message}</div>
-		</div>
-	`
+			<div class="modal__content">
+				<div data-modal-close class="modal__close">&times;</div>
+				<div class="modal__title">${message}</div>
+			</div>
+		`
 
 		document.querySelector(".modal").append(statusModal)
 
@@ -69,4 +69,4 @@ function form(formSelector, modalTimerId) {
 	}
 }
 
-export default form
+export default forms

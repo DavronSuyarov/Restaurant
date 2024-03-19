@@ -1,8 +1,8 @@
-function openModal(modalViewSelector, modalSelector, modalTimerId) {
-	const modalView = document.querySelector(modalViewSelector),
+function openModal(modalContentSelector, modalSelector, modalTimerId) {
+	const modalContent = document.querySelector(modalContentSelector),
 		modal = document.querySelector(modalSelector)
 
-	modalView.classList.add("modal_fade")
+	modalContent.classList.add("modal_fade")
 	modal.classList.add("show")
 	modal.classList.remove("hide")
 	document.body.style.overflow = "hidden"
@@ -16,17 +16,17 @@ function closeModal(modalSelector) {
 	const modal = document.querySelector(modalSelector)
 
 	modal.classList.add("hide")
-	modal.classList.add("show")
+	modal.classList.remove("show")
 	document.body.style.overflow = ""
 }
 
-function modal(btnSelector, modalSelector, modalViewSelector, modalTimerId) {
+function modal(btnSelector, modalSelector, modalContentSelector, modalTimerId) {
 	const modalOpenBtns = document.querySelectorAll(btnSelector),
 		modal = document.querySelector(modalSelector)
 
 	modalOpenBtns.forEach(btn => {
 		btn.addEventListener("click", () =>
-			openModal(modalSelector, modalViewSelector, modalTimerId)
+			openModal(modalContentSelector, modalSelector, modalTimerId)
 		)
 	})
 
@@ -38,6 +38,7 @@ function modal(btnSelector, modalSelector, modalViewSelector, modalTimerId) {
 			closeModal(modalSelector)
 		}
 	})
+
 	document.addEventListener("keydown", event => {
 		if (event.code === "Escape" && modal.classList.contains("show")) {
 			closeModal(modalSelector)

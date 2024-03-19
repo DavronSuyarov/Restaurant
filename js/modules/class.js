@@ -22,7 +22,7 @@ function classes(selector) {
 		}
 		render() {
 			const element = document.createElement("div")
-			element.innerHTML = `			
+			element.innerHTML = `
 			  <img src="${this.src}" alt="${this.alt}">
 			  <div>
 				<h3>${this.title}</h3>
