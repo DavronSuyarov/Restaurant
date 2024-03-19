@@ -2,10 +2,17 @@
 	"name": "31-dars.-loyiha.-soddalashtirish",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "Davron Suyarov",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"json-server": "^1.0.0-alpha.21"
+	},
+	"devDependencies": {
+		"eslint": "^8.57.0",
+		"webpack": "^5.90.3",
+		"webpack-cli": "^5.1.4"
+	}
 }
